@@ -4,21 +4,29 @@ import os
 from pathlib import Path
 from time import sleep
 
+umMega = 1e+6
+umGiga = 1e+9
 
-for folderName, subFolders, filenames in os.walk('/'):
-	print('Começando o scan...')
-	# sleep(2)
-	print(folderName)
-	print(subFolders)
-	print(filenames)
+BIGBOIS = []
+BIGFOLDERS = []
+
+folderAlvo = input('Qual pasta você quer escanear?\n')
+
+for folderName, subFolders, filenames in os.walk(folderAlvo):
+	print('Começando o scan em: ', folderName)
+
 	for filename in filenames:
 		filePath = Path(folderName) / filename
-		print(filePath)
-		print(filename)
+		totalFolderSize = 0
+	
 		try:
-			print(os.path.getsize(filePath))
+			totalFolderSize += os.path.getsize(filePath)
+			if (os.path.getsize(filePath) > umGiga):
+				BIGBOIS.push(filePath,filename,os.path.getsize(filePath))
+			if totalFolderSize > umGiga:
+				BIGFOLDERS.push(folderName)
 		except:
 			pass
-		# sleep(0.5)
 
-
+print(BIGBOIS)
+print(BIGFOLDERS)
