@@ -22,9 +22,10 @@ for folderName, subFolders, filenames in os.walk(folderAlvo):
 		try:
 			totalFolderSize += os.path.getsize(filePath)
 			if (os.path.getsize(filePath) > umGiga):
-				BIGBOIS.push(filePath,filename,os.path.getsize(filePath))
+				BIGBOI = folderName, filename, os.path.getsize(filePath)/umGiga
+				BIGBOIS.append(BIGBOI)
 			if totalFolderSize > umGiga:
-				BIGFOLDERS.push(folderName)
+				BIGFOLDERS.append(folderName)
 		except:
 			pass
 
